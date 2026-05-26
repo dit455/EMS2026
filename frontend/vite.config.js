@@ -10,9 +10,15 @@ export default defineConfig({
   server: {
     port: 5173,
     host: '0.0.0.0',
-    strictPort: false
+    strictPort: false,
+    proxy: {
+      // All /api/* requests are forwarded to Flask during development
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      }
+    }
   },
-  // Ensure the SPA fallback works for client-side routing
   preview: {
     port: 4173,
     host: '0.0.0.0'
